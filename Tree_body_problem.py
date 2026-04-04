@@ -1,42 +1,40 @@
+# importing required libraries
 import numpy as np
 import matplotlib.pyplot as plt
+
+
 # Random Intial condition generator
-def rendom_initial_conditions()
+def random_initial_conditions(seed = 42):
+    np.random.seed(seed)
+    # random masses
+    m1,m2,m3 = 1,np.random.uniform(0.5,1.5),np.random.uniform(0.5,1.5)
+  
+    # initial position
+    x1,y1 = np.random.uniform(0,1),np.random.uniform(0,1)
+    x2,y2 = np.random.uniform(0,1),np.random.uniform(0,1)
+    x3,y3 = np.random.uniform(0,1),np.random.uniform(0,1)
+    
+    # intiial velocities
+    v1x,v1y = np.random.uniform(0,1),np.random.uniform(0,1)
+    v2x,v2y = np.random.uniform(0,1),np.random.uniform(0,1)
+    
+    v3x,v3y = -(m1*v1x + m2*v2x)/m3,-(m1*v1y + m2*v2y)/m3
+    
+    
+    
+    # print Initial conditions
+    initial = [x1, y1, x2, y2, x3, y3,
+               v1x, v1y, v2x, v2y, v3x, v3y]
 
-  # initial position
-  x1 = 0.1*np.random.randint(0,11)
-  y1 = 0.1*np.random.randint(0,11)
-  x2 = 0.1*np.random.randint(0,11)
-  y2 = 0.1*np.random.randint(0,11)
-  x3 = 0.1*np.random.randint(0,11)
-  y3 = 0.1*np.random.randint(0,11)
-  
-  # intiial velocities
-  v1x = 0.1*np.random.randint(0,11)
-  v1y = 0.1*np.random.randint(0,11)
-  v2x = 0.1*np.random.randint(0,11)
-  v2y = 0.1*np.random.randint(0,11)
-  v3x = 0.1*np.random.randint(0,11)
-  v3y = 0.1*np.random.randint(0,11)
-  
-  
-  
-  # print Initial conditions
-  initial = [x1, y1, x2, y2, x3, y3,
-             v1x, v1y, v2x, v2y, v3x, v3y]
-
-return initial
+    return m1,m2,m3,initial
 
 # constants
 G = 1
+eps = 1e-5
 
-# Masses
-m1 = 1
-m2 = 0.3375170104670978
-m3 = 0.5634863023824473
 
-# state = [x1, y1, x2, y2, x3, y3, v1x, v1y, v2x, v2y, v3x, v3y]
-state = initial
+# initial conditions
+m1,m2,m3,state = random_initial_conditions()
 
 # time and steps 
 t = 0
@@ -60,9 +58,10 @@ def derivatives(s):
     dy23 = y3 - y2
     dy31 = y1 - y3
     
-    r12 = (dx12**2 + dy12**2)**0.5
-    r23 = (dx23**2 + dy23**2)**0.5
-    r31 = (dx31**2 + dy31**2)**0.5
+
+    r12 = (dx12**2 + dy12**2 + eps**2)**0.5
+    r23 = (dx23**2 + dy23**2 + eps**2)**0.5
+    r31 = (dx31**2 + dy31**2 + eps**2)**0.5
     
 
     # forces
@@ -82,7 +81,8 @@ def derivatives(s):
     a3x = Fx3/m3
     a3y = Fy3/m3
 
-    return [v1x, v1y, v2x, v2y, v3x, v3y, a1x, a1y, a2x, a2y, a3x, a3y]
+    return [v1x, v1y, v2x, v2y, v3x, v3y,
+            a1x, a1y, a2x, a2y, a3x, a3y]
 
 print('Starting simulation....\nLoading...')
 for i in range(steps):
@@ -111,9 +111,9 @@ for i in range(steps):
     dy12 = y2 - y1
     dy23 = y3 - y2
     dy31 = y1 - y3
-    r12 = (dx12**2 + dy12**2)**0.5
-    r23 = (dx23**2 + dy23**2)**0.5
-    r31 = (dx31**2 + dy31**2)**0.5
+    r12 = (dx12**2 + dy12**2 + eps**2)**0.5
+    r23 = (dx23**2 + dy23**2 + eps**2)**0.5
+    r31 = (dx31**2 + dy31**2 + eps**2)**0.5
     # velocity squared
     v1_sqre = v1x**2 + v1y**2
     v2_sqre = v2x**2 + v2y**2
@@ -129,17 +129,18 @@ for i in range(steps):
 
   
     # append trajectories
-    x1_traj.append(x1)
-    y1_traj.append(y1)
-    x2_traj.append(x2)
-    y2_traj.append(y2)
-    x3_traj.append(x3)
-    y3_traj.append(y3)
-    xcom_traj.append(xcom)
-    ycom_traj.append(ycom)
-    # total mechanical energy
-    E.append(energy)
-    time.append(t)
+    if i%100 == 0:
+      x1_traj.append(x1)
+      y1_traj.append(y1)
+      x2_traj.append(x2)
+      y2_traj.append(y2)
+      x3_traj.append(x3)
+      y3_traj.append(y3)
+      xcom_traj.append(xcom)
+      ycom_traj.append(ycom)
+      # total mechanical energy
+      E.append(energy)
+      time.append(t)
     if i%max(1,steps//10)==0:
         print('.',end = '')
 print('\nSimulation is ready to plot.')
