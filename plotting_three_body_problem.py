@@ -39,6 +39,9 @@ plt.show()
 
 # ploting energy of the system vs time
 plt.figure()
+E0 = E[0]
+error = [(e - E0)/E0 for e in E]
+plt.plot(time, error)
 plt.plot(time, E)
 plt.xlabel('Time',fontsize = 20, font = 'times new roman')
 plt.ylabel('Total energy of the system',fontsize = 20, font = 'times new roman')
