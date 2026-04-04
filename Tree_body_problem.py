@@ -31,10 +31,11 @@ def random_initial_conditions(seed = 42):
 # constants
 G = 1
 eps = 1e-5
+seed = 42
 
 
 # initial conditions
-m1,m2,m3,state = random_initial_conditions()
+m1,m2,m3,state = random_initial_conditions(seed = seed)
 
 # time and steps 
 t = 0
