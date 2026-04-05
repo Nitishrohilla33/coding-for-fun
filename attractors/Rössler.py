@@ -23,7 +23,7 @@ t0,tf,h = 0,100,0.01
 t = np.arange(t0,tf,h)
 
 # initial conditions
-state = np.array([1.0,0.0,0.0])
+state = np.array([1.001,0.0,0.0])
 
 # trajectory
 x_traj,y_traj,z_traj = [],[],[]
