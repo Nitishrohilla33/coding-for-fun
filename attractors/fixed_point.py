@@ -9,11 +9,11 @@ def rk4(x_dot,t,x,h):
     k2 = x_dot(t+h/2,x+k1*h/2)
     k3 = x_dot(t+h/2,x+k2*h/2)
     k4 = x_dot(t+h,x+k3*h)
-    return x + h/6(k1+k4+2*(k2+k3))
+    return x + h/6*(k1+k4+2*(k2+k3))
 
 # differential equation
 def x_dot(t,state):
-    return np.array([-x])
+    return np.array(-state[0])
 
 # time steps 
 t0,tf,h = 0,100,0.01
