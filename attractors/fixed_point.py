@@ -16,23 +16,23 @@ def x_dot(t,state):
     return np.array(-state[0])
 
 # time steps 
-t0,tf,h = 0,100,0.01
+t0,tf,h = 0,10,0.01
 t = np.arange(t0,tf,h)
 
 # intial conditions
-state = np.array([5])
+state = np.arange(-1,1.5,0.5)
 
-# trajectory
-x_traj = []
-
-for i in range(len(t)):
-    x_traj.append(state[0])
-    state = rk4(x_dot=x_dot,t=t,x=state,h=h)
-
-x = np.array(x_traj)
-
-plt.figure()
-plt.plot(t,x)
-plt.xlabel('t')
-plt.ylabel('x')
+for x in state:
+    x_traj = []
+    for i in range(len(t)):
+        x_traj.append(x)
+        state = rk4(x_dot=x_dot,t=t,x=state,h=h)
+    
+    x_traj = np.array(x_traj)
+    
+    #plt.figure()
+    plt.plot(t,x_traj,label = f'x(0) = {x}')
+    plt.xlabel('t')
+    plt.ylabel('x')
+plt.legend()    
 plt.show()
