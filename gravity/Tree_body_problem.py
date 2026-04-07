@@ -40,7 +40,7 @@ m1,m2,m3,state = random_initial_conditions(seed = seed)
 # time and steps 
 t = 0
 steps = 1460000
-dt = 9.5e-06
+dt = 9.49e-06
 
 # trajectories
 x1_traj, y1_traj = [], []
@@ -145,3 +145,53 @@ for i in range(steps):
     if i%max(1,steps//10)==0:
         print('.',end = '')
 print('\nSimulation is ready to plot.')
+# ploting the trajactories in lab frame of reference
+plt.figure()
+plt.plot(x1_traj,y1_traj, label = 'Star 1')
+plt.plot(x2_traj,y2_traj, label = 'Star 2')
+plt.plot(x3_traj,y3_traj, label = 'Star 3')
+plt.plot(xcom_traj,ycom_traj, label = 'center of mass')
+plt.scatter(x = x1_traj[0] ,y = y1_traj[0], label = 'Star 1 intial position')
+plt.scatter(x = x2_traj[0] ,y = y2_traj[0], label = 'Star 2 intial position')
+plt.scatter(x = x3_traj[0] ,y = y3_traj[0], label = 'Star 3 intial position')
+plt.title('3-body problem in lab frame', font = 'times new roman')
+plt.xlabel('x',fontsize = 20, font = 'times new roman')
+plt.ylabel('y',fontsize = 20, font = 'times new roman')
+plt.tight_layout()
+plt.legend()
+#plt.savefig('3-body_problem_in_lab_frame.png', dpi = 1500)
+plt.show()
+
+# ploting the trajactory in their center of mass reference
+x1com = np.array(x1_traj) - np.array(xcom_traj)
+y1com = np.array(y1_traj) - np.array(ycom_traj)
+x2com = np.array(x2_traj) - np.array(xcom_traj)
+y2com = np.array(y2_traj) - np.array(ycom_traj)
+x3com = np.array(x3_traj) - np.array(xcom_traj)
+y3com = np.array(y3_traj) - np.array(ycom_traj)
+plt.figure()
+plt.plot(x1com, y1com, label = 'star 1')
+plt.plot(x2com, y2com, label = 'star 2')
+plt.plot(x3com, y3com, label = 'star 3')
+plt.scatter(x = x1com[0] ,y = y1com[0], label = 'Star 1 intial position')
+plt.scatter(x = x2com[0] ,y = y2com[0], label = 'Star 2 intial position')
+plt.scatter(x = x3com[0] ,y = y3com[0], label = 'Star 3 intial position')
+plt.title('3-body problem in center of mass frame',font = 'times new roman')
+plt.xlabel('x',fontsize = 20, font = 'times new roman')
+plt.ylabel('y',fontsize = 20, font = 'times new roman')
+plt.tight_layout()
+plt.legend()
+#plt.savefig('3-body_problem_in_center_of_mass_frame.png', dpi = 1500)
+plt.show()
+
+# ploting energy of the system vs time
+plt.figure()
+plt.plot(time, E)
+E0 = E[0]
+error = [(e - E0)/E0 for e in E]
+plt.plot(time, error)
+plt.xlabel('Time',fontsize = 20, font = 'times new roman')
+plt.ylabel('Total energy of the system',fontsize = 20, font = 'times new roman')
+plt.tight_layout()
+#plt.savefig('energy_time_graph.png', dpi = 1500)
+plt.show()
