@@ -1,3 +1,6 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
 def x_dot(x):
     return x - x**3
 
@@ -10,12 +13,11 @@ print(x_array)
 dt = 0.0001
 steps = 20000
 
-
-# Trajectories
-x_traj = np.zeros(steps)
-t = np.zeros(steps)
-
+plt.figure(figsize=(10,6))
 for x0 in x_array:
+    # Trajectories
+    x_traj = np.zeros(steps)
+    t = np.zeros(steps)
     x = x0
     x_traj[0] = x
     
@@ -30,3 +32,8 @@ for x0 in x_array:
     
     plt.plot(t,x_traj,label = f'x(0) = {x0}')
     plt.legend()
+plt.title('Bistable System Trajectories')
+plt.xlabel('Time')
+plt.ylabel('x(t)')
+plt.grid()
+plt.show()
