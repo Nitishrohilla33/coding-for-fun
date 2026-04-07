@@ -43,4 +43,6 @@ plt.show()
 
 plt.figure()
 plt.plot(y,z)
+plt.xlabel('y')
+plt.ylabel('z')
 plt.show()
