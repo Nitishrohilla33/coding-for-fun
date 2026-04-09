@@ -35,6 +35,7 @@ plt.contour(x_array,time,T.T, 50)
 plt.title('contour map')
 plt.xlabel('length of rod (x)')
 plt.ylabel('Temprature(T)')
+plt.tight_layout()
 plt.show()
 
     
@@ -46,15 +47,16 @@ fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
 
 ax.plot_surface(X, Y, T.T)
+plt.tight_layout()
 ax.set_xlabel('length of rod (x)')
 ax.set_ylabel('Time (t)')
 ax.set_zlabel('Temperature (T)')
-
 plt.show()
 
 plt.figure(figsize=(10,8))
 for i in [0,100,200, 500 ,1000,1500,2000,5000,9999]:
     plt.plot(x_array,T[:,i],label = f'time = {i}')
+plt.tight_layout()    
 plt.title('Heat transfer in a rod of unit lenght')  
 plt.xlabel('length of rod (x)')
 plt.ylabel('Temprature(T)')
