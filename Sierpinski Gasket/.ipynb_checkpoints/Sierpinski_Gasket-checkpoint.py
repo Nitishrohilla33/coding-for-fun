@@ -24,12 +24,10 @@ for i in range(steps):
     x_initial,y_initial = (x+x_initial)*0.5,(y+y_initial)*0.5    
     x_points.append(x_initial)
     y_points.append(y_initial)
-
-plt.figure(figsize = (8,8),dpi=1500)    
-plt.plot(x_points,y_points,color = 'k',linestyle = ' ',markersize = 0.01,marker = '.')
+    
+plt.scatter(x_points,y_points,s = 0.01,color = 'k')
 plt.xlabel('x')
 plt.ylabel('y')
 plt.title('Sierpinski Gasket')
 plt.axis('equal')
-plt.show()
-#plt.savefig('Sierpinski',dpi = 1000)
+plt.savefig('Sierpinski',dpi = 1000)
