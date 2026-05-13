@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 # number of experiments
 N = 1000000
 # number of verticies 
-n = 5
+n = 6
 x_vert, y_vert = [],[]
 for i in range(n):
     angle = 2*np.pi*i/n
@@ -24,8 +24,9 @@ for i in range(N):
 plt.plot(point_x,point_y,
         linestyle = ' ',
         marker = ',', 
-        markersize = 0.8,
+        markersize = 1.5,
         color = 'k')
 plt.axis('equal')
 plt.axis('off')
+#plt.savefig('upgraded_version.png', dpi=500)
 plt.show()
